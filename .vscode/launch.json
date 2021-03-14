@@ -1,0 +1,40 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Baekjoon - Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": [
+        "<",
+        "${workspaceFolder}/baekjoon/res/input.txt",
+        ">",
+        "${workspaceFolder}/baekjoon/res/output.txt"
+      ]
+    },
+    {
+      "name": "C++ Debug",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+      "stopOnEntry": false,
+      "terminal": "integrated",
+      "args": [],
+      "initCommands": [
+        "platform shell g++ -g ${fileBasename} -o ${fileDirname}/${fileBasenameNoExtension}"
+      ],
+      "exitCommands": [
+        "platform shell rm ${fileDirname}/${fileBasenameNoExtension}"
+      ],
+      "cwd": "${workspaceFolder}",
+      "sourceLanguages": [
+        "cpp"
+      ]
+    }
+  ]
+}

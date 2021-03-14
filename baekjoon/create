@@ -1,0 +1,46 @@
+#!/bin/zsh
+
+red="\033[31m"
+green="\033[32m"
+bold="\033[1m"
+reset="\033[0m"
+
+TYPE=$1
+FILE=$2
+url="https://www.acmicpc.net/problem/$FILE"
+
+if [[ -z $TYPE ]]; then
+  echo
+  echo "  Example usage:"
+  echo "    create [Type] [Filename]"
+  echo
+  echo "    Available Types: python, cpp"
+  exit 1
+fi
+
+if [[ ! "$TYPE" =~ ^(python|cpp)$ ]]; then
+  echo
+  echo "${bold}${red}ERROR${reset} invalid type:"
+  echo
+  echo "  create ${green}[python]${reset} [FILE_NAME]"
+  echo "  create ${green}[cpp]${reset} [FILE_NAME]"
+  exit 1
+fi
+
+if [[ -z $FILE ]]; then
+  echo
+  echo "${bold}${red}ERROR${reset} filename must be provided:"
+  echo
+  echo "  create $1 ${green}[FILE_NAME]${reset}"
+  exit 1
+fi
+
+if [[ "$TYPE" == "python" ]]; then
+  echo "# $url" > "$PWD/src/$FILE.py"
+  code "$PWD/src/$FILE.py"
+elif [[ "$TYPE" == "cpp" ]]; then
+  echo "/**\n * $url\n */" > "$PWD/src/$FILE.cpp"
+  code "$PWD/src/$FILE.cpp"
+fi
+
+open -a "Google Chrome" $url
