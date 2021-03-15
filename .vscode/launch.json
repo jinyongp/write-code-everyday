@@ -12,9 +12,9 @@
       "console": "integratedTerminal",
       "args": [
         "<",
-        "${workspaceFolder}/res/input.txt",
+        "${workspaceFolder}/baekjoon/res/input.txt",
         ">",
-        "${workspaceFolder}/res/output.txt"
+        "${workspaceFolder}/baekjoon/res/output.txt"
       ]
     },
     {
