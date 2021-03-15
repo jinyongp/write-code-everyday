@@ -5,31 +5,36 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Baekjoon - Python: Current File",
+      "name": "[Baekjoon] Python: Current File",
       "type": "python",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
       "args": [
         "<",
-        "${workspaceFolder}/baekjoon/res/input.txt",
+        "${workspaceFolder}/res/input.txt",
         ">",
-        "${workspaceFolder}/baekjoon/res/output.txt"
+        "${workspaceFolder}/res/output.txt"
       ]
     },
     {
-      "name": "C++ Debug",
+      "name": "[Baekjoon] C++: Current File",
       "type": "lldb",
       "request": "launch",
-      "program": "${workspaceFolder}/${fileBasenameNoExtension}",
+      "program": "${workspaceFolder}/baekjoon/output/${fileBasenameNoExtension}",
       "stopOnEntry": false,
       "terminal": "integrated",
-      "args": [],
+      "stdio": [
+        "${workspaceFolder}/baekjoon/res/input.txt",
+        "${workspaceFolder}/baekjoon/res/output.txt",
+        null
+      ],
       "initCommands": [
-        "platform shell g++ -g ${fileBasename} -o ${fileDirname}/${fileBasenameNoExtension}"
+        "platform shell mkdir -p ${workspaceFolder}/baekjoon/output",
+        "platform shell g++ -g ${fileDirname}/${fileBasename} -o ${workspaceFolder}/baekjoon/output/${fileBasenameNoExtension}"
       ],
       "exitCommands": [
-        "platform shell rm ${fileDirname}/${fileBasenameNoExtension}"
+        "platform shell rm -rf ${workspaceFolder}/baekjoon/output"
       ],
       "cwd": "${workspaceFolder}",
       "sourceLanguages": [
