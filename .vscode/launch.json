@@ -31,7 +31,7 @@
       ],
       "initCommands": [
         "platform shell mkdir -p ${workspaceFolder}/baekjoon/output",
-        "platform shell g++ -g ${fileDirname}/${fileBasename} -o ${workspaceFolder}/baekjoon/output/${fileBasenameNoExtension}"
+        "platform shell g++ -std=c++17 -g ${fileDirname}/${fileBasename} -o ${workspaceFolder}/baekjoon/output/${fileBasenameNoExtension}"
       ],
       "exitCommands": [
         "platform shell rm -rf ${workspaceFolder}/baekjoon/output"
