@@ -39,7 +39,7 @@ if [[ "$TYPE" == "python" ]]; then
   echo "# $url" > "$PWD/src/$FILE.py"
   code "$PWD/src/$FILE.py"
 elif [[ "$TYPE" == "cpp" ]]; then
-  echo "/**\n * $url\n */" > "$PWD/src/$FILE.cpp"
+  echo "// $url" > "$PWD/src/$FILE.cpp"
   code "$PWD/src/$FILE.cpp"
 fi
 
