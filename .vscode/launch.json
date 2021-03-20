@@ -12,29 +12,29 @@
       "console": "integratedTerminal",
       "args": [
         "<",
-        "${workspaceFolder}/baekjoon/res/input.txt",
+        "${workspaceFolder}/res/input.txt",
         ">",
-        "${workspaceFolder}/baekjoon/res/output.txt"
+        "${workspaceFolder}/res/output.txt"
       ]
     },
     {
       "name": "[Baekjoon] C++: Current File",
       "type": "lldb",
       "request": "launch",
-      "program": "${workspaceFolder}/baekjoon/output/${fileBasenameNoExtension}",
+      "program": "${workspaceFolder}/output/${fileBasenameNoExtension}",
       "stopOnEntry": false,
       "terminal": "integrated",
       "stdio": [
-        "${workspaceFolder}/baekjoon/res/input.txt",
-        "${workspaceFolder}/baekjoon/res/output.txt",
+        "${workspaceFolder}/res/input.txt",
+        "${workspaceFolder}/res/output.txt",
         null
       ],
       "initCommands": [
-        "platform shell mkdir -p ${workspaceFolder}/baekjoon/output",
-        "platform shell g++ -std=c++17 -g ${fileDirname}/${fileBasename} -o ${workspaceFolder}/baekjoon/output/${fileBasenameNoExtension}"
+        "platform shell mkdir -p ${workspaceFolder}/output",
+        "platform shell g++ -std=c++17 -g ${fileDirname}/${fileBasename} -o ${workspaceFolder}/output/${fileBasenameNoExtension}"
       ],
       "exitCommands": [
-        "platform shell rm -rf ${workspaceFolder}/baekjoon/output"
+        "platform shell rm -rf ${workspaceFolder}/output"
       ],
       "cwd": "${workspaceFolder}",
       "sourceLanguages": [
