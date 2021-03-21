@@ -1,60 +1,61 @@
-from itertools import permutations
 from collections import deque
-
-
-def check(w, weak, dist):
-    """
-    취약지점을 dist 순서대로 방문할 때 최소 몇 명이 필요한지 검사한다.
-    모두 투입해도 수리하지 못한다면 -1을 반환한다.
-
-    weak = 10 13 17 18
-    dist = 4 1 2 3
-    => (10,11,12,13,14), (17,18) => 2
-
-    - weak을 set으로 하여 dist를 증가할 때
-    """
-    for f, d in enumerate(dist, start=1):
-        d += w
-        for i in range(w, d + 1):
-            if i == weak[0]:
-                weak.popleft()
-                if len(weak) == 0:
-                    return f
-                w = weak[0]
-    return -1
 
 
 def solution(n, weak, dist):
     """
-    weak[i]에서 출발하는 경우 모두 고려한다.
-    dist의 permutations를 통해 필요한 친구의 최소를 구한다.
+    bfs 탐색을 이용하여 트리의 높이가 가장 낮은 곳에 위치한 결과가 정답이다.
+    끝까지 탐색했음에도 정답에 도달하지 못했을 경우, -1을 반환한다.
 
-    1 5 6 10
+    bfs 탐색을 해야 하므로 deque를 이용한 queue를 생성한다.
+    dist의 경우, 가장 먼 거리를 이동할 수 있는 친구가 더 많은 수리를 할 수 있으므로 거리에 따라 내림차순으로 정렬한다.
+    가장 먼 거리를 이동할 수 있는 친구 부분에서 정답이 결정되므로 내림차순으로 정렬된 dist의 반복으로 충분하다.
 
-    (1, 2, 3, 4) (1,) (5,6) (10,11,12) => 3
-    (1, 2, 4, 3) (1,) (5,6) (10,11,12,13) => 3
-    (1, 3, 2, 4) ...
+    1st item: [1, 3, 4, 9, 10], [7, 5, 3]
 
-    10 13 17 18
+    left = 1
+    right = (1 + 7) % n = 8
 
-    ...
-    (3, 4, 2, 1) (10,11,12,13) (17,18,19,20,21) => 2
-    (4, 1, 2, 3) (10,11,12,13,14) (17,18..) => 2
-    (4, 1, 3, 2) ...
+    중간에 위치하는 모든 weak 구간을 제거한다. (filter 함수 사용)
 
-    ANSWER) 최소 2명
+    조건: # 구간을 선택해야 한다.
+    left < right일 경우, 중간 범위 선택
+    left > right일 경우, 외부 범위 선택
+
+    ####|---------------|#
+    ----------------------
+     1   3 4         9 10
+    --------|#######|-----
+
+    dist는 tree의 높이 역할을, weak은 tree의 너비가 된다.
+    weak을 순회할 동안 답이 구해진다면 bfs이므로 최솟값이 된다.
+
+    마지막까지 계산되지 않는다면 -1을 반환한다.
     """
-    weak_q = deque(weak)
-    dist.reverse()  # 긴 거리를 이동할 수 있는 친구부터 나열
-    FLAG = 12341234
-    result = FLAG
-    for _ in range(len(weak)):
-        for distances in permutations(dist):
-            temp = check(weak_q[0], weak_q.copy(), distances)
-            if temp != -1:
-                result = min(result, temp)
-        weak_q.append(weak_q.popleft() + n)
-    return -1 if result == FLAG else result
+    queue = deque()
+    dist.sort(reverse=True)
+    queue.append(tuple(weak))
+    visited = set()   # 동일한 연산에 대해서는 수행하지 않는다.
+    for num, distance in enumerate(dist, start=1):  # tree의 높이
+        for _ in range(len(queue)):  # tree의 너비
+            weak_q = queue.popleft()
+            if weak_q not in visited:
+                visited.add(weak_q)
+                for w in weak_q:
+                    left, right = w, (w + distance) % n
+                    if left < right:
+                        completed = tuple(filter(
+                            lambda x: x < left or x > right,
+                            weak_q
+                        ))
+                    else:
+                        completed = tuple(filter(
+                            lambda x: x < left and x > right,
+                            weak_q
+                        ))
+                    if not len(completed):
+                        return num
+                    queue.append((completed))
+    return -1
 
 
 n, weak, dist = 12, [1, 5, 6, 10], [1, 2, 3, 4]
