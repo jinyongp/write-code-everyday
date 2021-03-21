@@ -1,4 +1,5 @@
 from itertools import permutations
+from collections import deque
 
 
 def check(w, weak, dist):
@@ -12,18 +13,14 @@ def check(w, weak, dist):
 
     - weak을 set으로 하여 dist를 증가할 때
     """
-    if w == 10:
-        print(w)
     for f, d in enumerate(dist, start=1):
         d += w
-        print(weak, dist, list(range(w, d + 1)), end=" ")
         for i in range(w, d + 1):
-            if i == weak[-1]:
-                weak.pop()
+            if i == weak[0]:
+                weak.popleft()
                 if len(weak) == 0:
-                    print()
                     return f
-                w = weak[-1]
+                w = weak[0]
     return -1
 
 
@@ -47,16 +44,16 @@ def solution(n, weak, dist):
 
     ANSWER) 최소 2명
     """
-    weak = weak[::-1]  # 리스트 삭제를 효율적으로 하기 위해서 반대로 나열
-    dist = dist[::-1]  # 긴 거리를 이동할 수 있는 친구부터 나열
+    weak_q = deque(weak)
+    dist.reverse()  # 긴 거리를 이동할 수 있는 친구부터 나열
     FLAG = 12341234
     result = FLAG
     for _ in range(len(weak)):
         for distances in permutations(dist):
-            temp = check(weak[-1], weak, distances)
+            temp = check(weak_q[0], weak_q.copy(), distances)
             if temp != -1:
                 result = min(result, temp)
-        weak = [weak[-1] + n] + weak[:-1]
+        weak_q.append(weak_q.popleft() + n)
     return -1 if result == FLAG else result
 
 
