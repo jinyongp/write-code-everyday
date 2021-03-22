@@ -17,6 +17,20 @@ def valid(p):
     return not len(stack)
 
 
+def balance(p):
+    """
+    균형잡힌 괄호 문자열인지 확인한다.
+    """
+    count = 0
+    for i in p:
+        count = count + 1 if i == "(" else count - 1
+    return count == 0
+
+
+def to_str(lst):
+    return "".join(lst)
+
+
 def split(p):
     """
     균형잡힌 괄호 문자열 u와 나머지 v를 반환한다.
@@ -28,14 +42,11 @@ def split(p):
     u, v 리스트를 생성해서 v 리스트에 p를 저장하고 값을 하나씩 넣으면서
     """
     u, v = list(), deque(p)
-    count = {"(": 0, ")": 0}
     while len(v):
-        temp = v.popleft()
-        u.append(temp)
-        count[temp] += 1
-        if count["("] == count[")"]:
-            return "".join(u), "".join(v)
-    return "".join(u), "".join(v)
+        u.append(v.popleft())
+        if balance(u):
+            return to_str(u), to_str(v)
+    return to_str(u), to_str(v)
 
 
 def make_valid(u, m):
@@ -46,7 +57,7 @@ def make_valid(u, m):
 
     "(" + m + ")" + 나머지
     """
-    return "(" + m + ")" + "".join(map(lambda x: {"(": ")", ")": "("}[x], u[1:-1]))
+    return "(" + m + ")" + to_str(map(lambda x: {"(": ")", ")": "("}[x], u[1:-1]))
 
 
 def solution(p):
