@@ -4,8 +4,8 @@
 
 ## 파트1. 2021 KAKAO BLIND RECRUITMENT
 
-- [ ] 신규 아이디 추천
-- [ ] 메뉴 리뉴얼
+- [x] [신규 아이디 추천](https://programmers.co.kr/learn/courses/30/lessons/72410)
+- [x] [메뉴 리뉴얼](https://programmers.co.kr/learn/courses/30/lessons/72411)
 - [ ] 순위 검색
 - [ ] 합승 택시 요금
 - [ ] 광고 삽입
