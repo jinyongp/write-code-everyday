@@ -31,7 +31,10 @@
       ],
       "initCommands": [
         "platform shell mkdir -p ${workspaceFolder}/output",
-        "platform shell g++ -std=c++17 -g ${fileDirname}/${fileBasename} -o ${workspaceFolder}/output/${fileBasenameNoExtension}"
+        "platform shell clang++ -std=c++17 -g ${fileDirname}/${fileBasename} -o ${workspaceFolder}/output/${fileBasenameNoExtension}",
+      ],
+      "postRunCommands": [
+        "platform shell echo -n > ${workspaceFolder}/res/output.txt",
       ],
       "exitCommands": [
         "platform shell rm -rf ${workspaceFolder}/output"
