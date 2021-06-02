@@ -14,16 +14,17 @@ if [[ -z $TYPE ]]; then
   echo "  Example usage:"
   echo "    create [Type] [Filename]"
   echo
-  echo "    Available Types: python, cpp"
+  echo "    Available Types: python, cpp, js"
   exit 1
 fi
 
-if [[ ! "$TYPE" =~ ^(python|cpp)$ ]]; then
+if [[ ! "$TYPE" =~ ^(python|cpp|js)$ ]]; then
   echo
   echo "${bold}${red}ERROR${reset} invalid type:"
   echo
   echo "  create ${green}[python]${reset} [FILE_NAME]"
   echo "  create ${green}[cpp]${reset} [FILE_NAME]"
+  echo "  create ${green}[js]${reset} [FILE_NAME]"
   exit 1
 fi
 
@@ -35,12 +36,16 @@ if [[ -z $FILE ]]; then
   exit 1
 fi
 
+filename="$PWD/src/$FILE"
 if [[ "$TYPE" == "python" ]]; then
-  echo "# $url" > "$PWD/src/$FILE.py"
-  code "$PWD/src/$FILE.py"
+  echo "# $url" >"$filename.py"
+  code "$filename.py"
 elif [[ "$TYPE" == "cpp" ]]; then
-  echo "// $url" > "$PWD/src/$FILE.cpp"
-  code "$PWD/src/$FILE.cpp"
+  echo "// $url" >"$filename.cpp"
+  code "$filename.cpp"
+elif [[ "$TYPE" == "js" ]]; then
+  echo "// $url" >"$filename.js"
+  code "$filename.js"
 fi
 
-open -a "Google Chrome" $url
+# open -a "Google Chrome" $url
