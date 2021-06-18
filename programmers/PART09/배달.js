@@ -27,7 +27,7 @@
  * }
  *
  * leastWeight는 각 마을로 가는데 최소 거리를 나타낸다.
- * 전부 Math.MAX_SAFE_INTEGER(999으로 대체)로 한다.
+ * 전부 Infinity(999으로 대체)로 한다.
  * 1번 마을은 비용이 0이다.
  * leastWeight = [999, 0, 999, 999, 999, 999, 999];
  *
@@ -55,7 +55,7 @@
  * 최소값이 계속 갱신되고 이렇게 된 부분은 더 이상 탐색하지 않으므로 충분히 가능한 시간 복잡도를 가질 것으로 예상된다.
  */
 function solution(N, road, K) {
-  const leastWeight = Array(N + 1).fill(Number.MAX_SAFE_INTEGER);
+  const leastWeight = Array(N + 1).fill(Infinity);
   leastWeight[1] = 0;
 
   const graph = {};
