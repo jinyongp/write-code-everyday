@@ -7,10 +7,11 @@ const reader = readline.createInterface({
 });
 
 /**
+ * 조합 구하기
  *
- *
- * @param
- * @return
+ * @param {number} N
+ * @param {number} M
+ * @return N 개중 M 개를 고를 경우의 수
  */
 function solution(N, M) {
   const numbers = Array.from({ length: N })

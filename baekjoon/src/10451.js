@@ -29,8 +29,8 @@ const reader = readline.createInterface({
  *
  * 이렇게 모든 인덱스에 대해서 모든 노드를 방문할 때까지 반복하고 최종 사이클 수를 반환한다.
  *
- * @param N 순열의 크기
- * @param numbers 순열
+ * @param {number} N 순열의 크기
+ * @param {number[]} numbers 순열
  * @returns 순열에 존재하는 순열 사이클의 개수
  */
 function solution(N, numbers) {
