@@ -61,14 +61,13 @@ function solution(jobs) {
       console.log("우선순위 큐에서 가져온 데이터:", [startTime, executeTime]);
       time += executeTime;
       answer += time - startTime;
-      assignTasks();
     } else {
       const [startTime, executeTime] = jobs[index++];
       console.log("비었을 때 처리한 데이터:", [startTime, executeTime]);
-      time += startTime + executeTime - time;
+      time = startTime + executeTime;
       answer += executeTime;
-      assignTasks();
     }
+    assignTasks();
   }
 
   return Math.floor(answer / jobs.length);
@@ -85,13 +84,23 @@ let jobs;
 // ];
 // console.log(solution(jobs)); // 9
 
+// [jobs] = [
+//   [
+//     [1, 3],
+//     [2, 3],
+//     [100, 2],
+//     [200, 2],
+//     [300, 2],
+//   ],
+// ];
+// console.log(solution(jobs)); //
+
 [jobs] = [
   [
-    [1, 3],
-    [2, 3],
-    [100, 2],
-    [200, 2],
-    [300, 2],
+    [0, 10],
+    [2, 10],
+    [9, 10],
+    [15, 2],
   ],
 ];
-console.log(solution(jobs)); //
+console.log(solution(jobs)); // 15
