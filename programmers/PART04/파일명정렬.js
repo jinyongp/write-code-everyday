@@ -15,7 +15,7 @@
  * @return {string[]} 정렬 기준에 맞춰 정렬된 파일명이 담긴 배열
  */
 function solution(files) {
-  const regex = new RegExp("(^\\D+)|(\\d{1,5})|(.*)$", "g");
+  const regex = /(^\D+)|(\d{1,5})|(.*)$/g;
   return [...files].sort((a, b) => {
     let [H1, N1] = a.match(regex);
     let [H2, N2] = b.match(regex);
