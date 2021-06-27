@@ -38,7 +38,7 @@ function solution(info, queries) {
   const hash = info.reduce((obj, data) => {
     const row = data.split(" ");
     const score = Number(row.pop());
-    addValueToArray(obj, row.join(""), score);
+    addValueToObj(obj, row.join(""), score);
     [1, 2, 3, 4].forEach((r) => {
       combinations([0, 1, 2, 3], r).forEach((comb) => {
         const tempData = [...row];

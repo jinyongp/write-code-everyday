@@ -4,7 +4,7 @@
  *
  * @param {any[]} iterable 배열
  * @param {number} r 결과의 길이 (기본값은 iterable의 길이)
- * @return {any[]} 순열 결과
+ * @return {any[][]} 순열 결과
  */
 function 순열(iterable, r = iterable.length) {
   if (r === 1) return iterable.map((value) => [value]);
@@ -22,7 +22,7 @@ console.log(순열([1, 2, 3], 2));
  *
  * @param {any[]} iterable 배열
  * @param {number} r 결과의 길이 (기본값은 iterable의 길이)
- * @return {any[]} 조합 결과
+ * @return {any[][]} 조합 결과
  */
 function 조합(iterable, r = iterable.length) {
   if (r === 1) return iterable.map((value) => [value]);
@@ -46,7 +46,7 @@ console.log(조합([1, 2, 3], 2));
  *
  * @param {any[]} iterable 배열
  * @param {number} r 결과의 길이 (기본값은 iterable의 길이)
- * @return {any[]} 중복순열 결과
+ * @return {any[][]} 중복순열 결과
  */
 function 중복순열(iterable, r = iterable.length) {
   if (r === 1) return iterable.map((value) => [value]);
@@ -63,7 +63,7 @@ console.log(중복순열([1, 2, 3], 2));
  *
  * @param {any[]} iterable 배열
  * @param {number} r 결과의 길이 (기본값은 iterable의 길이)
- * @return {any[]} 중복조합 결과
+ * @return {any[][]} 중복조합 결과
  */
 function 중복조합(iterable, r = iterable.length) {
   if (r === 1) return iterable.map((value) => [value]);
