@@ -1,7 +1,7 @@
 // https://programmers.co.kr/learn/courses/30/lessons/12953?language=javascript
 
 /**
- * 최대공배수 = (a * b) / gcb(a, b)
+ * 최대공배수 = (a * b) / gcd(a, b)
  *
  * @param {number[]} 100 이하의 자연수가 담긴 배열
  * @return {number} 배열에 담긴 모든 수의 최소공배수
@@ -10,14 +10,14 @@ function solution(arr) {
   return arr.reduce((result, num) => lcm(result, num), lcm(arr[0], arr[1]));
 }
 
-function gcb(a, b) {
+function gcd(a, b) {
   const r = a % b;
   if (!r) return b;
-  return gcb(b, r);
+  return gcd(b, r);
 }
 
 function lcm(a, b) {
-  return (a * b) / gcb(a, b);
+  return (a * b) / gcd(a, b);
 }
 
 let arr;

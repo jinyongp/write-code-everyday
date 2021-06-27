@@ -14,7 +14,7 @@ const reader = readline.createInterface({
  * @return {string} 최대공약수, 최소공배수
  */
 function solution(A, B) {
-  return [gcb(A, B), lcm(A, B)].join("\n");
+  return [gcd(A, B), lcm(A, B)].join("\n");
 }
 
 /**
@@ -27,12 +27,12 @@ function solution(A, B) {
  * - A가 B로 나누어떨어지는지 확인한다. 만약 나누어 떨어진다면 최대 공약수는 B이다.
  * - 나누어떨어지지 않는다면 A % B로 나머지를 구한다. B와 A % B의 GCD를 구한다.
  *
- * GCD(A, B) === GCB(B, A % B) === ...
+ * GCD(A, B) === GCD(B, A % B) === ...
  */
-function gcb(A, B) {
+function gcd(A, B) {
   const R = A % B;
   if (!R) return B;
-  return gcb(B, R);
+  return gcd(B, R);
 }
 
 /**
@@ -46,7 +46,7 @@ function gcb(A, B) {
  *
  */
 function lcm(A, B) {
-  return (A * B) / gcb(A, B);
+  return (A * B) / gcd(A, B);
 }
 
 const lines = [];
