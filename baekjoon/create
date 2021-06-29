@@ -14,15 +14,15 @@ if [[ -z $TYPE ]]; then
   echo "  Example usage:"
   echo "    create [Type] [Filename]"
   echo
-  echo "    Available Types: python, cpp, js"
+  echo "    Available Types: py, cpp, js"
   exit 1
 fi
 
-if [[ ! "$TYPE" =~ ^(python|cpp|js)$ ]]; then
+if [[ ! "$TYPE" =~ ^(py|cpp|js)$ ]]; then
   echo
   echo "${bold}${red}ERROR${reset} invalid type:"
   echo
-  echo "  create ${green}[python]${reset} [FILE_NAME]"
+  echo "  create ${green}[py]${reset} [FILE_NAME]"
   echo "  create ${green}[cpp]${reset} [FILE_NAME]"
   echo "  create ${green}[js]${reset} [FILE_NAME]"
   exit 1
@@ -36,16 +36,29 @@ if [[ -z $FILE ]]; then
   exit 1
 fi
 
+function create_file() {
+  _file="$1.$2"
+  _template="$PWD/templates/template"
+  if [[ -f $_file ]]; then
+    echo -e "${red}The file already exist.${reset}"
+    code $_file
+    exit 1
+  fi
+  [[ $2 == "cpp" ]] && echo -e "// $url\n" >"$_file"
+  [[ $2 == "py" ]] && echo -e "# $url\n" >"$_file"
+  [[ $2 == "js" ]] && echo -e "// $url\n" >"$_file"
+  cat "$_template.$2" >>"$_file"
+  code "$_file"
+  echo -e "${green}Create a file successfully!${reset}"
+}
+
 filename="$PWD/src/$FILE"
-if [[ "$TYPE" == "python" ]]; then
-  echo "# $url" >"$filename.py"
-  code "$filename.py"
+if [[ "$TYPE" == "py" ]]; then
+  create_file $filename py
 elif [[ "$TYPE" == "cpp" ]]; then
-  echo "// $url" >"$filename.cpp"
-  code "$filename.cpp"
+  create_file $filename cpp
 elif [[ "$TYPE" == "js" ]]; then
-  echo "// $url" >"$filename.js"
-  code "$filename.js"
+  create_file $filename js
 fi
 
 # open -a "Google Chrome" $url
