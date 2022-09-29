@@ -51,7 +51,7 @@ bool conflict(int r, int c) {
 }
 
 int main() {
-  cout << solution(4) << endl; // 92
+  cout << solution(8) << endl; // 92
 
   return 0;
 }

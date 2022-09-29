@@ -6,7 +6,7 @@
   "configurations": [
     {
       "type": "node",
-      "name": "Launch Program",
+      "name": "JS: Current File",
       "program": "${file}",
       "request": "launch",
       "console": "integratedTerminal",
@@ -15,10 +15,14 @@
         "${workspaceFolder}/res/input.txt",
         ">",
         "${workspaceFolder}/res/output.txt"
+      ],
+      "skipFiles": [
+        "${workspaceFolder}/lib/**/*.js",
+        "<node_internals>/**/*.js"
       ]
     },
     {
-      "name": "[Baekjoon] Python: Current File",
+      "name": "Python: Current File",
       "type": "python",
       "request": "launch",
       "program": "${file}",
@@ -31,7 +35,7 @@
       ]
     },
     {
-      "name": "[Baekjoon] C++: Current File",
+      "name": "C++: Current File",
       "type": "lldb",
       "request": "launch",
       "program": "${workspaceFolder}/output/${fileBasenameNoExtension}",

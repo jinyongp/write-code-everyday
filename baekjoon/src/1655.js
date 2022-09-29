@@ -36,7 +36,6 @@ function solution(numbers) {
         minHeap.insert(maxHeap.extract());
         maxHeap.insert(temp);
       }
-      console.log(maxHeap.heap, minHeap.heap);
       return maxHeap.peek();
     })
     .join("\n");

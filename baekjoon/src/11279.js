@@ -17,21 +17,22 @@ function solution(operators) {
   const answer = [];
   operators.forEach((operator) => {
     if (operator) maxHeap.insert(operator);
-    else answer.push(maxHeap.isEmpty() ? 0 : maxHeap.extract());
+    else answer.push(maxHeap.empty() ? 0 : maxHeap.extract());
   });
   return answer.join("\n");
 }
 
 class MaxHeap {
-  constructor(data) {
-    this.heap = data ? [0, data] : [0];
+  constructor(comparator = (lhs, rhs) => lhs > rhs) {
+    this.heap = [0];
+    this._comparator = comparator;
   }
 
   swap(a, b) {
     [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
   }
 
-  isEmpty() {
+  empty() {
     return this.heap.length === 1;
   }
 
@@ -39,7 +40,9 @@ class MaxHeap {
     this.heap.push(data);
     const moveUp = (index = this.heap.length - 1) => {
       const parentIndex = Math.floor(index / 2);
-      if (index === 1 || this.heap[index] <= this.heap[parentIndex]) return;
+      const parentData = this.heap[parentIndex];
+      const currentData = this.heap[index];
+      if (index === 1 || !this._comparator(currentData, parentData)) return;
       this.swap(index, parentIndex);
       moveUp(parentIndex);
     };
@@ -55,21 +58,24 @@ class MaxHeap {
     const moveDown = (index = 1) => {
       const leftChildIndex = index * 2;
       const rightChildIndex = index * 2 + 1;
-      if (!this.heap[leftChildIndex]) return;
-      if (!this.heap[rightChildIndex]) {
-        if (this.heap[index] < this.heap[leftChildIndex]) {
-          this.swap(index, leftChildIndex);
+      const currentData = this.heap[index];
+      const leftChildData = this.heap[leftChildIndex];
+      const rightChildData = this.heap[rightChildIndex];
+      if (!leftChildData) return;
+      if (!rightChildData) {
+        if (this._comparator(leftChildData, currentData)) {
+          this.swap(leftChildIndex, index);
           moveDown(leftChildIndex);
         }
       } else {
-        if (this.heap[leftChildIndex] > this.heap[rightChildIndex]) {
-          if (this.heap[index] < this.heap[leftChildIndex]) {
-            this.swap(index, leftChildIndex);
+        if (this._comparator(leftChildData, rightChildData)) {
+          if (this._comparator(leftChildData, currentData)) {
+            this.swap(leftChildIndex, index);
             moveDown(leftChildIndex);
           }
         } else {
-          if (this.heap[index] < this.heap[rightChildIndex]) {
-            this.swap(index, rightChildIndex);
+          if (this._comparator(rightChildData, currentData)) {
+            this.swap(rightChildIndex, index);
             moveDown(rightChildIndex);
           }
         }

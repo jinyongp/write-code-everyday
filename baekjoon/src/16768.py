@@ -79,7 +79,7 @@ def fall_haybale():
     isChanged = False
     while True:
         exit = True
-        for row in range(N-1):
+        for row in range(N - 1):
             for col in range(10):
                 cell = get_cell(row, col)
                 under_cell = get_cell(row + 1, col)

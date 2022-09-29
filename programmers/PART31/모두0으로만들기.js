@@ -121,11 +121,11 @@ function solution(a, edges) {
   const visited = Array(a.length).fill(false);
   while (stack.length) {
     const [currentNode, parentNode] = stack.pop();
-    console.log(currentNode, parentNode, stack, visited, answer);
 
     if (visited[currentNode]) {
       answer += BigInt(Math.abs(a[currentNode]));
       a[parentNode] += a[currentNode];
+      console.log(a);
     } else {
       visited[currentNode] = true;
       stack.push([currentNode, parentNode]);
@@ -135,7 +135,7 @@ function solution(a, edges) {
       }
     }
   }
-
+  console.log(a);
   return a[0] ? -1 : Number(answer);
 }
 

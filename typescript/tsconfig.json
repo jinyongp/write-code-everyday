@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+    "noImplicitAny": true, // any로 판단되면 에러 발생
+    "strictNullChecks": true, // 타입에 null과 undefined 제거
+    "noImplicitReturns": true, // 함수 내 return이 없으면 에러 발생
+    "strictFunctionTypes": true, // 함수의 매개변수가 같거나 슈퍼타입이 아니라면 에러 발생
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*"
+  ]
+}

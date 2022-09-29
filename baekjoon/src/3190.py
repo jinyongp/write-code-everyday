@@ -4,7 +4,7 @@ from collections import deque
 from os import system
 from time import sleep
 
-N, K = int(input()), int(input())
+N, M, K = int(input()), int(input()), int(input())
 A = {tuple(map(lambda x: int(x) - 1, input().split())) for _ in range(K)}
 L = int(input())
 XC = [tuple(input().split()) for _ in range(L)]
@@ -40,9 +40,10 @@ XC = {int(x): c for x, c in XC}
 
 
 class SnakeBoard:
-    def __init__(self, size, apples):
-        self.size = size
-        self.board = [[False for _ in range(size)] for _ in range(size)]
+    def __init__(self, width, height, apples):
+        self.width = width
+        self.height = height
+        self.board = [[False for _ in range(width)] for _ in range(height)]
         self.board[0][0] = True
         self.apples = apples
         self.snake = deque()
@@ -52,26 +53,29 @@ class SnakeBoard:
         self._i = 0
 
     def __str__(self):
-        board = ""
-        for row in range(self.size):
-            for col in range(self.size):
+        board = "┌"
+        board += "──" * (self.width) + "─┐\n"
+        for row in range(self.height):
+            board += "│ "
+            for col in range(self.width):
                 if (row, col) in self.apples:
-                    board += "\033[1;31mA \033[0m"
+                    board += "\033[1;31m \033[0m"
                 elif (col, row) == self.snake[-1]:
                     board += "\033[1;35mH \033[0m"
                 elif self.board[row][col]:
                     board += "\033[1;34ms \033[0m"
                 else:
-                    board += "· "
+                    board += "  "
+            board += "│\n"
 
-            board += "\n"
+        board += "└" + "──" * (self.width) + "─┘\n"
 
         board += "Time: %2d" % self.move_count
         board += f"\nDirection: {('RIGHT', 'DOWN', 'LEFT', 'UP')[self._i]}"
         return board
 
     def out_of_board(self, x, y):
-        return x < 0 or y < 0 or x >= self.size or y >= self.size
+        return x < 0 or y < 0 or x >= self.width or y >= self.height
 
     def check_collision(self, x, y):
         return self.board[y][x]
@@ -103,7 +107,7 @@ class SnakeBoard:
         self._i %= 4
 
 
-snake = SnakeBoard(N, A)
+snake = SnakeBoard(M, N, A)
 while True:
     system("clear")
     if not snake.forward():
@@ -117,7 +121,7 @@ while True:
 
 # print(snake.move_count)
 print(snake)
-print("Press ^C to End")
+print("Press ^C to End", end="")
 try:
     sleep(999)
 except KeyboardInterrupt:
